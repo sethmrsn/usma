@@ -76,11 +76,11 @@ class home implements ActionListener
         ImageIcon feedIcon, searchIcon, createIcon, inboxIcon, profileIcon;
         JButton feedButton, searchButton, createButton, inboxButton, profileButton;
 
-        feedIcon = new ImageIcon("C:\\Users\\emersset000\\IdeaProjects\\usma\\images\\icon-feed.png");
-        searchIcon = new ImageIcon("C:\\Users\\emersset000\\IdeaProjects\\usma\\images\\icon-search.png");
-        createIcon = new ImageIcon("C:\\Users\\emersset000\\IdeaProjects\\usma\\images\\icon-create.png");
-        inboxIcon = new ImageIcon("C:\\Users\\emersset000\\IdeaProjects\\usma\\images\\icon-inbox.png");
-        profileIcon = new ImageIcon("C:\\Users\\emersset000\\IdeaProjects\\usma\\images\\icon-profile.png");
+        feedIcon = new ImageIcon("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\images\\icon-feed.png");
+        searchIcon = new ImageIcon("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\images\\icon-search.png");
+        createIcon = new ImageIcon("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\images\\icon-create.png");
+        inboxIcon = new ImageIcon("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\images\\icon-inbox.png");
+        profileIcon = new ImageIcon("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\images\\icon-profile.png");
 
         feedButton = new JButton(feedIcon);
         searchButton = new JButton(searchIcon);
@@ -199,7 +199,7 @@ class home implements ActionListener
         listModel = new DefaultListModel();
         list = new JList(listModel);
 
-        list.setSelectionMode(1);
+        list.setEnabled(false);
         list.setLayoutOrientation(0);
         list.setVisibleRowCount(-1);
 
@@ -209,8 +209,8 @@ class home implements ActionListener
         usernameLabel.setBounds(125, 75, 150, 25);
         followersLabel.setBounds(140, 115, 55, 25);
         followingLabel.setBounds(140, 140, 55, 25);
-        followers.setBounds(200, 100, 60, 60);
-        following.setBounds(200, 125, 60, 60);
+        followers.setBounds(200, 97, 60, 60);
+        following.setBounds(200, 122, 60, 60);
         posts.setBounds(0, 200, 400, 220);
 
         followers.setContentAreaFilled(false);
@@ -224,6 +224,7 @@ class home implements ActionListener
 
         posts.isWheelScrollingEnabled();
 
+        System.out.println(a.posts.size());
         for(int b = 0; b < a.posts.size(); b++)
             listModel.addElement(a.username + " -> " + a.posts.get(b).text);
 

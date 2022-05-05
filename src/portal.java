@@ -35,7 +35,7 @@ class portal implements ActionListener
     {
         JLabel logo, uLabel, pLabel;
 
-        logo = new JLabel(new ImageIcon("C:\\Users\\emersset000\\IdeaProjects\\usma\\images\\logo-main.png"));
+        logo = new JLabel(new ImageIcon("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\images\\logo-main.png"));
         uLabel = new JLabel("username:");
         pLabel = new JLabel("password:");
         uText = new JTextField();

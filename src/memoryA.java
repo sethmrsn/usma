@@ -4,7 +4,8 @@ public class memoryA
 {
     public static ArrayList<profile> index = new ArrayList<profile>();
     public static Map<String, String> credentials = new TreeMap<String, String>();
-    public static int x = 19;
+    public static Map<String, post> posts = new Map<String, post>();
+    public static int x = 20;
 
     public static profile find(String b)
     {
