@@ -5,7 +5,9 @@ class profile
 {
     public static String name, username, password;
     public static ArrayList<profile> followers, following;
-    public static ArrayList<post> posts;
+    public static ArrayList<String> posts;
+
+    // create int for posts size and use it in write
 
     profile(String a, String b, String c)
     {
@@ -16,7 +18,7 @@ class profile
         followers = new ArrayList<profile>();
         following = new ArrayList<profile>();
 
-        posts = new ArrayList<post>();
+        posts = new ArrayList<String>();
 
         add();
     }
@@ -26,7 +28,6 @@ class profile
         memoryA.index.add(this);
         memoryA.credentials.put(username, password);
     }
-
     void createPost(profile a, String text)
     {
         try {

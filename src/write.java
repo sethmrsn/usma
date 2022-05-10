@@ -19,7 +19,7 @@ public class write
         br.close();
 
         content.add(memoryA.x++, "        profile a" + username.hashCode() + " = new profile(\"" + name + "\", \"" + username + "\", \"" + password + "\");\n");
-        content.add(memoryA.x++, "        mem_" + username.hashCode() + ".enact();\n\n");
+        content.add(memoryA.x++, "        mem_" + username.hashCode() + ".enact(a" + username + ");\n\n");
         content.set(6, "    public static int x = " + memoryA.x + ";\n");
 
         FileWriter fw = new FileWriter(main);
@@ -64,8 +64,8 @@ public class write
             line = br.readLine();
         }
         br.close();
-        
-        content.add(8, "        post b " + a.posts.size() + "= new post(\"" + a.username + ", " + text + "\");\n");
+
+        content.add(8 + a.posts.size(), "        post b" + a.posts.size() + " = new post(a, \"" + text + "\");\n");
 
         FileWriter fw = new FileWriter(file);
 

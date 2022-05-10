@@ -169,6 +169,7 @@ class home implements ActionListener
 
         upload.addActionListener(e -> {
             a.createPost(a, text.getText());
+            refresh();
             create.setVisible(false);
             profile.setVisible(true);
         });
@@ -224,12 +225,11 @@ class home implements ActionListener
 
         posts.isWheelScrollingEnabled();
 
-        System.out.println(a.posts.size());
-        for(int b = 0; b < a.posts.size(); b++)
-            listModel.addElement(a.username + " -> " + a.posts.get(b).text);
 
-        listModel.addElement("works");
-
+        for(int b = a.posts.size() - 1; b > -1; b--) {
+            System.out.println(b);
+            listModel.addElement(a.username + " >> " + a.posts.get(b));
+        }
         profile.add(nameLabel);
         profile.add(usernameLabel);
         profile.add(followersLabel);
@@ -238,6 +238,29 @@ class home implements ActionListener
         profile.add(following);
         profile.add(posts);
 
+    }
+
+    void refresh()
+    {
+        frame.remove(feed);
+        frame.remove(search);
+        frame.remove(create);
+        frame.remove(inbox);
+        frame.remove(profile);
+
+        mem_3526726.enact(a);
+
+        feed();
+        search();
+        create();
+        inbox();
+        profile();
+
+        frame.add(feed);
+        frame.add(search);
+        frame.add(create);
+        frame.add(inbox);
+        frame.add(profile);
     }
 
     public void actionPerformed(ActionEvent e) {}

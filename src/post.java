@@ -1,18 +1,10 @@
 class post
 {
-    public static String username;
     public static String text;
 
-    post(String username, String text)
+    post(profile a, String text)
     {
-        this.username = username;
         this.text = text;
-
-        add();
-    }
-
-    void add()
-    {
-        memoryA.posts.put(username,this);
+        a.posts.add(text);
     }
 }
