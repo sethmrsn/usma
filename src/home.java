@@ -155,8 +155,9 @@ class home implements ActionListener
         posts.isWheelScrollingEnabled();
 
         for(int b = a.getFollowing().size() - 1; b > -1; b--)
-            for(int c = a.getFollowing().get(b).getPosts().size() - 1; c > - 1; c--)
-                listModel.addElement(a.getFollowing().get(b).getUsername() + " >> " + a.getFollowing().get(b).getPosts().get(c).getText());
+            for(int c = a.getFollowing().get(b).getPosts().size() - 1; c > -1; c--)
+                if(!listModel.contains(a.getFollowing().get(b).getUsername() + " >> " + a.getFollowing().get(b).getPosts().get(c).getText()))
+                    listModel.addElement(a.getFollowing().get(b).getUsername() + " >> " + a.getFollowing().get(b).getPosts().get(c).getText());
 
         feed.add(posts);
     }
@@ -183,7 +184,7 @@ class home implements ActionListener
         profiles = new JScrollPane(list);
 
         text.setBounds(100,25,200,25);
-        find.setBounds(150,55,100,33);
+        find.setBounds(150,60,100,30);
         profiles.setBounds(25, 100, 350, 275);
 
         find.addActionListener(e -> {
@@ -209,7 +210,7 @@ class home implements ActionListener
 
         textLabel.setBounds(187,200,25,25);
         text.setBounds(100,225,200,50);
-        upload.setBounds(150,280,100,33);
+        upload.setBounds(150,285,100,30);
 
         upload.addActionListener(e -> {
             a.createPost(a, text.getText());
@@ -281,6 +282,7 @@ class home implements ActionListener
         followersLabel.setBounds(140, 115, 55, 25);
         followingLabel.setBounds(140, 140, 55, 25);
         followers.setBounds(200, 97, 60, 60);
+        following.setBounds(200, 122, 60, 60);
         posts.setBounds(25, 200, 350, 175);
 
         followers.setContentAreaFilled(false);
@@ -291,10 +293,8 @@ class home implements ActionListener
 
         posts.isWheelScrollingEnabled();
 
-        for(int b = a.getPosts().size() - 1; b > -1; b--) {
-            System.out.println(a.getPosts().get(b).getText());
+        for(int b = a.getPosts().size() - 1; b > -1; b--)
             listModel.addElement(a.getUsername() + " >> " + a.getPosts().get(b).getText());
-        }
 
         profile.add(nameLabel);
         profile.add(usernameLabel);
