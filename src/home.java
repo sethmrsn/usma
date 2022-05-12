@@ -1,15 +1,11 @@
 import javax.swing.*;
 import javax.swing.JScrollPane;
-import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import java.util.*;
 
 class home implements ActionListener
 {
     JFrame frame;
-    JPanel row, search, create, profile;
-    JScrollPane feed, inbox;
+    JPanel row, feed, search, create, inbox, profile;
     profile a;
 
     home(profile a)
@@ -21,8 +17,8 @@ class home implements ActionListener
         search = new JPanel();
         create = new JPanel();
         profile = new JPanel();
-        feed = new JScrollPane();
-        inbox = new JScrollPane();
+        feed = new JPanel();
+        inbox = new JPanel();
 
         frame.setSize(400, 500);
         frame.setResizable(false);
@@ -41,12 +37,6 @@ class home implements ActionListener
         create.setBounds(0, 0, 400, 400);
         inbox.setBounds(0, 0, 400, 400);
         profile.setBounds(0,0,400,400);
-
-        /*try {
-            write.info(a);
-        } catch (IOException e) {
-            System.out.println("ERROR");
-        }*/
 
         row();
         feed();
@@ -147,10 +137,64 @@ class home implements ActionListener
 
     void feed()
     {
+        DefaultListModel listModel;
+        JList list;
+        JScrollPane posts;
+
+        listModel = new DefaultListModel();
+        list = new JList(listModel);
+
+        list.setEnabled(false);
+        list.setLayoutOrientation(0);
+        list.setVisibleRowCount(-1);
+
+        posts = new JScrollPane(list);
+
+        posts.setBounds(25, 25, 350, 350);
+
+        posts.isWheelScrollingEnabled();
+
+        for(int b = a.getFollowing().size() - 1; b > -1; b--)
+            for(int c = a.getFollowing().get(b).getPosts().size() - 1; c > - 1; c--)
+                listModel.addElement(a.getFollowing().get(b).getUsername() + " >> " + a.getFollowing().get(b).getPosts().get(c).getText());
+
+        feed.add(posts);
     }
 
     void search()
     {
+        JTextField text;
+        JButton find;
+
+        DefaultListModel listModel;
+        JList list;
+        JScrollPane profiles;
+
+        text = new JTextField(1);
+        find = new JButton("search");
+
+        listModel = new DefaultListModel();
+        list = new JList(listModel);
+
+        list.setEnabled(false);
+        list.setLayoutOrientation(0);
+        list.setVisibleRowCount(-1);
+
+        profiles = new JScrollPane(list);
+
+        text.setBounds(100,25,200,25);
+        find.setBounds(150,55,100,33);
+        profiles.setBounds(25, 100, 350, 275);
+
+        find.addActionListener(e -> {
+            listModel.clear();
+            profile b = memory.find(text.getText());
+            listModel.addElement(b.getName() + " // @" + b.getUsername());
+        });
+
+        search.add(text);
+        search.add(find);
+        search.add(profiles);
     }
 
     void create()
@@ -165,11 +209,10 @@ class home implements ActionListener
 
         textLabel.setBounds(187,200,25,25);
         text.setBounds(100,225,200,50);
-        upload.setBounds(150,340,100,33);
+        upload.setBounds(150,280,100,33);
 
         upload.addActionListener(e -> {
             a.createPost(a, text.getText());
-            refresh();
             create.setVisible(false);
             profile.setVisible(true);
         });
@@ -181,6 +224,33 @@ class home implements ActionListener
 
     void inbox()
     {
+        DefaultListModel listModel, listModel0;
+        JList list, list0;
+        JScrollPane pane, pane0;
+
+        listModel = new DefaultListModel();
+        listModel0 = new DefaultListModel();
+        list = new JList(listModel);
+        list0 = new JList(listModel0);
+
+        list.setEnabled(false);
+        list.setLayoutOrientation(0);
+        list.setVisibleRowCount(-1);
+
+        list0.setEnabled(false);
+        list0.setLayoutOrientation(0);
+        list0.setVisibleRowCount(-1);
+
+        pane = new JScrollPane(list);
+        pane0 = new JScrollPane(list0);
+
+        pane.setBounds(25, 25, 350, 350);
+        pane0.setBounds(25, 25, 350, 350);
+
+        pane.isWheelScrollingEnabled();
+        pane0.isWheelScrollingEnabled();
+
+        inbox.add(pane);
     }
 
     void profile()
@@ -191,12 +261,12 @@ class home implements ActionListener
         JList list;
         JScrollPane posts;
 
-        nameLabel = new JLabel(a.name, 0);
-        usernameLabel = new JLabel("@" + a.username, 0);
+        nameLabel = new JLabel(a.getName(), 0);
+        usernameLabel = new JLabel("@" + a.getUsername(), 0);
         followersLabel = new JLabel("followers");
         followingLabel = new JLabel("following");
-        followers = new JButton(String.valueOf(a.followers.size()));
-        following = new JButton(String.valueOf(a.following.size()));
+        followers = new JButton(String.valueOf(a.getFollowers().size()));
+        following = new JButton(String.valueOf(a.getFollowing().size()));
         listModel = new DefaultListModel();
         list = new JList(listModel);
 
@@ -211,8 +281,7 @@ class home implements ActionListener
         followersLabel.setBounds(140, 115, 55, 25);
         followingLabel.setBounds(140, 140, 55, 25);
         followers.setBounds(200, 97, 60, 60);
-        following.setBounds(200, 122, 60, 60);
-        posts.setBounds(0, 200, 400, 220);
+        posts.setBounds(25, 200, 350, 175);
 
         followers.setContentAreaFilled(false);
         following.setContentAreaFilled(false);
@@ -220,16 +289,13 @@ class home implements ActionListener
         followers.setBorderPainted(false);
         following.setBorderPainted(false);
 
-        //followers.addActionListener(e -> {System.out.println("this works");});
-        //following.addActionListener(e -> {System.out.println("display new panel over profile")});
-
         posts.isWheelScrollingEnabled();
 
-
-        for(int b = a.posts.size() - 1; b > -1; b--) {
-            System.out.println(b);
-            listModel.addElement(a.username + " >> " + a.posts.get(b));
+        for(int b = a.getPosts().size() - 1; b > -1; b--) {
+            System.out.println(a.getPosts().get(b).getText());
+            listModel.addElement(a.getUsername() + " >> " + a.getPosts().get(b).getText());
         }
+
         profile.add(nameLabel);
         profile.add(usernameLabel);
         profile.add(followersLabel);
@@ -237,30 +303,6 @@ class home implements ActionListener
         profile.add(followers);
         profile.add(following);
         profile.add(posts);
-
-    }
-
-    void refresh()
-    {
-        frame.remove(feed);
-        frame.remove(search);
-        frame.remove(create);
-        frame.remove(inbox);
-        frame.remove(profile);
-
-        mem_3526726.enact(a);
-
-        feed();
-        search();
-        create();
-        inbox();
-        profile();
-
-        frame.add(feed);
-        frame.add(search);
-        frame.add(create);
-        frame.add(inbox);
-        frame.add(profile);
     }
 
     public void actionPerformed(ActionEvent e) {}

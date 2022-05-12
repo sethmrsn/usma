@@ -3,11 +3,10 @@ import java.util.*;
 
 class profile
 {
-    public static String name, username, password;
-    public static ArrayList<profile> followers, following;
-    public static ArrayList<String> posts;
-
-    // create int for posts size and use it in write
+    private String name, username, password;
+    private ArrayList<profile> followers, following;
+    private ArrayList<post> posts;
+    private int x;
 
     profile(String a, String b, String c)
     {
@@ -18,16 +17,58 @@ class profile
         followers = new ArrayList<profile>();
         following = new ArrayList<profile>();
 
-        posts = new ArrayList<String>();
+        posts = new ArrayList<post>();
 
-        add();
+        memory.index.add(this);
+        memory.credentials.put(username, password);
     }
 
-    void add()
+    String getName()
     {
-        memoryA.index.add(this);
-        memoryA.credentials.put(username, password);
+        return name;
     }
+
+    String getUsername()
+    {
+        return username;
+    }
+
+    ArrayList<post> getPosts()
+    {
+        return posts;
+    }
+
+    ArrayList<profile> getFollowers()
+    {
+        return followers;
+    }
+
+    ArrayList<profile> getFollowing()
+    {
+        return following;
+    }
+
+    void addToX()
+    {
+        x++;
+    }
+
+    void addToPosts(post a)
+    {
+        posts.add(a);
+    }
+
+    void addToFollowers(profile a)
+    {
+        followers.add(a);
+    }
+
+    void addToFollowing(profile a)
+    {
+        following.add(a);
+        a.addToFollowers(this);
+    }
+
     void createPost(profile a, String text)
     {
         try {
@@ -35,5 +76,6 @@ class profile
         } catch (IOException e) {
             System.out.println("ERROR");
         }
+        addToX();
     }
 }

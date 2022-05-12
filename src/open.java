@@ -2,7 +2,13 @@ class open
 {
     public static void main(String[] args)
     {
-        memoryA.enact();
+        memory.enact();
         portal a = new portal();
+    }
+
+    public static void main(String[] args, profile z)
+    {
+        memory.enact();
+        home a = new home(z);
     }
 }

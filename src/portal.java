@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.*;
 
 class portal implements ActionListener
 {
@@ -112,11 +111,11 @@ class portal implements ActionListener
             String username = uText.getText();
             String password = String.valueOf(pText.getPassword());
 
-            memoryA.credentials.put("admin", "1871");
+            memory.credentials.put("admin", "1871");
 
-            if (memoryA.credentials.containsKey(username) && memoryA.credentials.get(username).equals(password)) {
+            if (memory.credentials.containsKey(username) && memory.credentials.get(username).equals(password)) {
                 frame.dispose();
-                home a = new home(memoryA.find(username));
+                home a = new home(memory.find(username));
             } else
                 JOptionPane.showMessageDialog(frame, "invalid credentials", "error", 0);
         }
@@ -138,7 +137,7 @@ class portal implements ActionListener
                 JOptionPane.showMessageDialog(frame, "missing name", "error", 0);
             else if (username.length() < 2)
                 JOptionPane.showMessageDialog(frame, "username must be at least 2 characters", "error", 0);
-            else if (memoryA.credentials.containsKey(username))
+            else if (memory.credentials.containsKey(username))
                 JOptionPane.showMessageDialog(frame, "username is not available", "error", 0);
             else if (password.length() < 8)
                 JOptionPane.showMessageDialog(frame, "password must be at least 8 characters", "error", 0);
@@ -146,7 +145,8 @@ class portal implements ActionListener
                 try{
                     write.alt(name, username, password);
                     frame.dispose();
-                    home b = new home(memoryA.find(username));
+                    JOptionPane.showMessageDialog(frame, "account creation successful", "", 1);
+                    //open.main(null, memoryA.find(username));
                 }
                 catch(IOException ex) {
                     JOptionPane.showMessageDialog(frame, "try again later", "error", 0);

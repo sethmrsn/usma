@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -8,7 +7,8 @@ public class write
     {
         ArrayList<String> content = new ArrayList<String>();
 
-        File main = new File("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\src\\memoryA.java");
+        //File main = new File("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\src\\memoryA.java");
+        File main = new File("/Users/seth/IdeaProjects/usma/src/memoryA.java");
         BufferedReader br = new BufferedReader(new FileReader(main));
         String line = br.readLine();
 
@@ -18,9 +18,9 @@ public class write
         }
         br.close();
 
-        content.add(memoryA.x++, "        profile a" + username.hashCode() + " = new profile(\"" + name + "\", \"" + username + "\", \"" + password + "\");\n");
-        content.add(memoryA.x++, "        mem_" + username.hashCode() + ".enact(a" + username + ");\n\n");
-        content.set(6, "    public static int x = " + memoryA.x + ";\n");
+        content.add(memory.x++, "        profile a" + username.hashCode() + " = new profile(\"" + name + "\", \"" + username + "\", \"" + password + "\");\n");
+        content.add(memory.x++, "        mem_" + username.hashCode() + ".enact(a" + username.hashCode() + ");\n");
+        content.set(6, "    public static int x = " + memory.x++ + ";\n");
 
         FileWriter fw = new FileWriter(main);
 
@@ -30,7 +30,8 @@ public class write
 
         content.clear();
 
-        File temp = new File("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\src\\mem_temp.java");
+        //File temp = new File("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\src\\mem_temp.java");
+        File temp = new File("/Users/seth/IdeaProjects/usma/src/mem_temp.java");
         BufferedReader br2 = new BufferedReader(new FileReader(temp));
         line = br2.readLine();
 
@@ -42,7 +43,8 @@ public class write
 
         content.set(2, "public class mem_" + username.hashCode() + "\n");
 
-        File file = new File("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\src\\mem_" + username.hashCode() + ".java");
+        //File file = new File("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\src\\mem_" + username.hashCode() + ".java");
+        File file = new File("/Users/seth/IdeaProjects/usma/src/mem_" + username.hashCode() + ".java");
         file.createNewFile();
         FileWriter fw2 = new FileWriter(file);
 
@@ -55,7 +57,8 @@ public class write
     {
         ArrayList<String> content = new ArrayList<String>();
 
-        File file = new File("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\src\\mem_" + a.username.hashCode() + ".java");
+        //File file = new File("C:\\Users\\emersset000\\Documents\\GitHub\\usma\\src\\mem_" + a.username.hashCode() + ".java");
+        File file = new File("/Users/seth/IdeaProjects/usma/src/mem_" + a.getUsername().hashCode() + ".java");
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line = br.readLine();
 
@@ -65,7 +68,7 @@ public class write
         }
         br.close();
 
-        content.add(8 + a.posts.size(), "        post b" + a.posts.size() + " = new post(a, \"" + text + "\");\n");
+        content.add(4 + a.getPosts().size(), "        post b" + a.getPosts().size() + " = new post(a, \"" + text + "\");\n");
 
         FileWriter fw = new FileWriter(file);
 
